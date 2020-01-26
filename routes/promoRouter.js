@@ -15,7 +15,7 @@ promoRouter.route('/')
   }, (err) => next(err))
   .catch((err) => next(err));
 })
-.delete(authenticate.verifyUser, (req, res, next) => {
+.delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   Promos.remove({}).then((resp) => {
     res.statusCode = 200;
     res.setHeader('Content-type', 'application/json');
@@ -23,7 +23,7 @@ promoRouter.route('/')
   }, (err) => next(err))
   .catch((err) => next(err));
 })
-.post(authenticate.verifyUser, (req, res, next) => {
+.post(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   Promos.create(req.body).then((promo) => {
     res.statusCode = 200;
     res.setHeader('Content-type', 'application/json');
@@ -31,7 +31,7 @@ promoRouter.route('/')
   }, (err) => next(err))
   .catch((err) => next(err)); 
   })
-.put(authenticate.verifyUser, (req, res, next) => {
+.put(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   res.statusCode = 403;
   res.end('PUT operation is not supported');
 });
@@ -46,7 +46,7 @@ promoRouter.route('/:promoId')
   }, (err) => next(err))
   .catch((err) => next(err));
 })
-.put(authenticate.verifyUser, (req, res, next) => {
+.put(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   Promos.findByIdAndUpdate(req.params.promoId, {$set:req.body}, {new: true}).then((promo) => {
     res.statusCode = 200;
     res.setHeader('Content-type', 'application/json');
@@ -54,7 +54,7 @@ promoRouter.route('/:promoId')
   }, (err) => next(err))
   .catch((err) => next(err));
 })
-.delete(authenticate.verifyUser, (req, res, next) => {
+.delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   Promos.findByIdAndRemove(req.params.promoId).then((resp) => {
     res.statusCode = 200;
     res.setHeader('Content-type', 'application/json');
@@ -62,7 +62,7 @@ promoRouter.route('/:promoId')
   }, (err) => next(err))
   .catch((err) => next(err));
 })
-.post(authenticate.verifyUser, (req, res, next) => {
+.post(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   res.statusCode = 403;
   res.end('POST operation is not supported');
 });
