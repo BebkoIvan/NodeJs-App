@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const uploadRouter = require('./routes/uploadRouter');
 const logger = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -15,7 +16,7 @@ const config = require('./config')
 
 const passport = require('passport');
 const authenticate = require('./authenticate');
-
+app.use('/imageUpload',uploadRouter);
 const mongoose = require('mongoose');
 const url = config.mongoUrl;
 const connect = mongoose.connect(url);
@@ -25,6 +26,16 @@ connect.then((db) => {
 }, (err) => { console.log(err); });
 
 const app = express();
+
+// Secure traffic only
+app.all('*', (req, res, next) => {
+  if (req.secure) {
+    return next();
+  }
+  else {
+    res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
