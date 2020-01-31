@@ -16,7 +16,6 @@ const config = require('./config')
 
 const passport = require('passport');
 const authenticate = require('./authenticate');
-app.use('/imageUpload',uploadRouter);
 const mongoose = require('mongoose');
 const url = config.mongoUrl;
 const connect = mongoose.connect(url);
@@ -42,6 +41,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+app.use('/imageUpload',uploadRouter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser('12345-67890-09876-54321'));
