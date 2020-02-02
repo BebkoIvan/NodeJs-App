@@ -9,6 +9,7 @@ const FileStore = require('session-file-store')(session);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const favoritesRouter = require('./routes/favorites');
 const dishRouter = require('./routes/dishRouter');
 const promoRouter = require('./routes/promoRouter');
 const leaderRouter = require('./routes/leaderRouter');
@@ -58,6 +59,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/promotions', promoRouter);
 app.use('/dishes', dishRouter);
 app.use('/leaders', leaderRouter);
+app.use('/favorites', favoritesRouter);
 
 
 // catch 404 and forward to error handler
