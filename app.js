@@ -9,7 +9,7 @@ const FileStore = require('session-file-store')(session);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const favoritesRouter = require('./routes/favorites');
+const favoritesRouter = require('./routes/favoriteRouter');
 const dishRouter = require('./routes/dishRouter');
 const promoRouter = require('./routes/promoRouter');
 const leaderRouter = require('./routes/leaderRouter');
